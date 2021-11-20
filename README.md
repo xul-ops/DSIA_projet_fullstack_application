@@ -55,7 +55,7 @@ Ce projet a utilisé différents outils :
 
 Nous avons utilisé Docker pour le développement et le déploiement de notre application.
 
-Fichers et dossiers : [Dockfile] de Fastapi(https://github.com/xul-ops/DSIA_projet_fullstack_application/blob/main/Dockerfile), [Dockfile] de Vue(https://github.com/xul-ops/DSIA_projet_fullstack_application/blob/main/vue/Dockerfile), [docker-compose.yml](https://github.com/xul-ops/DSIA_projet_fullstack_application/blob/main/docker-compose.yml)
+Fichers et dossiers : [Dockfile](https://github.com/xul-ops/DSIA_projet_fullstack_application/blob/main/Dockerfile) de Fastapi, [Dockfile](https://github.com/xul-ops/DSIA_projet_fullstack_application/blob/main/vue/Dockerfile) de Vue, [docker-compose.yml](https://github.com/xul-ops/DSIA_projet_fullstack_application/blob/main/docker-compose.yml)
 
 - [Dockfile] de Fastapi(https://github.com/xul-ops/DSIA_projet_fullstack_application/blob/main/Dockerfile) : Il contient les paramètres de Fastapi sur l'image correspondant de docker.
 
@@ -87,6 +87,7 @@ Voici un aperçu du résultat obtenu.
 
 ### La page d'inscription 
 
+&nbsp; 
 ![png](img_presentation/inscription.png)
 
  &nbsp;  
@@ -100,19 +101,21 @@ Voici un aperçu du résultat obtenu.
  &nbsp;
 ### La page de movielist
 
+&nbsp; 
 ![png](img_presentation/movielist.png)
 
  &nbsp; 
  &nbsp;
 ### La page de recherche
 
+&nbsp; 
 ![png](img_presentation/search.png)
 
  &nbsp; 
  &nbsp;
 ### La page de movie en détail
-La fonction de recherche permet de rechercher plus précisément un produit grâce à une barre de recherche.
 
+&nbsp; 
 ![png](img_presentation/detail.png)
 &nbsp; 
 
