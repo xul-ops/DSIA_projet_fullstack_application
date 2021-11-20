@@ -217,6 +217,7 @@ export default {
             password: password,
           }).then((res) => {
             if (res.code === 200) {
+              sessionStorage.setItem('username',user)
               this.$router.push("/movie/list");
             } else if (res.code === 204) {
               this.$notify.error({
