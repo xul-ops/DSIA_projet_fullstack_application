@@ -5,3 +5,11 @@ psycopg2
 python-slugify
 requests
 python-keycloak
+python-jose[cryptography]
+pyjwt
+python-dotenv
+bcrypt
+passlib
+python-multipart
+typing
+pydantic

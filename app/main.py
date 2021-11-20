@@ -14,9 +14,6 @@ from services import movie as movie_service
 app = FastAPI()
 
 
-
-
-
 # front url
 origins = [
     "http://localhost",

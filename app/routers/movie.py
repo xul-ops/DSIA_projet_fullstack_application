@@ -42,7 +42,6 @@ async def filter_movies(genre: str = "ALL", year: str = "ALL", rank: str = "rati
         return {"code": 404, "data":[]}
 
 
-
 @router.get("/movieSearchList", tags=["movies"])
 async def get_movies_search_list(type: str = "Title", content: str = "", db: Session = Depends(db.get_db)):
     try:

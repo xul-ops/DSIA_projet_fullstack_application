@@ -18,6 +18,24 @@ def create_user(db: Session, post) -> models.user_model:
     return db_post
 
 
+def get_post_by_mail(mail: str, db: Session) -> models.user_model:
+
+    record = db.query(models.user_model).filter(models.user_model.mail == mail).first()
+    if not record:
+        raise HTTPException(status_code=404, detail="Not Found")
+    record.id = str(record.id)
+    return record
+
+
+def get_post_by_username(username: str, db: Session) -> models.user_model:
+
+    record = db.query(models.user_model).filter(models.user_model.username == username).first()
+    if not record:
+        raise HTTPException(status_code=404, detail="Not Found")
+    record.id = str(record.id)
+    return record
+
+
 def get_all_users(db: Session, skip: int = 0, limit: int = 10) -> List[models.user_model]:
 
     records = db.query(models.user_model).filter().offset(skip).limit(limit).all()
