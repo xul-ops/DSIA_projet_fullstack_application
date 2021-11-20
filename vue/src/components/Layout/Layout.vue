@@ -2,26 +2,29 @@
   <div class="layout">
     <header class="flex flex-between">
       <div>
-        <span class="title" @click="$router.push('/movie/list')">
-          imovie
-        </span>
+        <span class="title" @click="$router.push('/movie/list')"> imovie </span>
       </div>
       <div class="nav">
-        <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" router @select="handleSelect">
+        <el-menu
+          :default-active="activeIndex"
+          class="el-menu-demo"
+          mode="horizontal"
+          router
+          @select="handleSelect"
+        >
           <el-menu-item index="/movie/list">Leaderboard</el-menu-item>
           <el-menu-item index="/movie/search">Search</el-menu-item>
         </el-menu>
       </div>
       <el-dropdown @command="handleClick">
         <div class="user flex">
-          <el-avatar :size="24"> A</el-avatar>
-          <span class="name">Admin</span>
+          <el-avatar :size="24"> {{username}}</el-avatar>
+          <span class="name">{{username}}</span>
         </div>
         <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item>Log out</el-dropdown-item>
+          <el-dropdown-item >Log out</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
-
     </header>
     <main>
       <router-view></router-view>
@@ -34,27 +37,31 @@ export default {
   name: "Layout",
   data() {
     return {
-      activeIndex: '1'
-    }
+      activeIndex: "1",
+    };
+  },
+  computed: {
+    username() {
+      return sessionStorage.getItem("username");
+    },
   },
   methods: {
-    handleSelect() {
-
-    },
+    handleSelect() {},
     handleClick() {
       console.log(1);
-      this.$confirm('Are you sure to log out??', 'Tip', {
-        confirmButtonText: 'Confirm',
-        cancelButtonText: 'Cancel',
-        type: 'warning'
-      }).then(() => {
-        this.$router.push('/')
-      }).catch(() => {
-
-      });
-    }
-  }
-}
+      this.$confirm("Are you sure to log out??", "Tip", {
+        confirmButtonText: "Confirm",
+        cancelButtonText: "Cancel",
+        type: "warning",
+      })
+        .then(() => {
+          sessionStorage.clear()
+          this.$router.push("/");
+        })
+        .catch(() => {});
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
@@ -87,7 +94,8 @@ $primary-color: rgba(35, 116, 255, 1);
   width: 100%;
   height: 100%;
 
-  header, main {
+  header,
+  main {
     width: 1040px;
     margin: 0 auto;
   }
@@ -122,6 +130,5 @@ $primary-color: rgba(35, 116, 255, 1);
       }
     }
   }
-
 }
 </style>
