@@ -18,7 +18,7 @@ def get_movie_by_title(title: str, db: Session) -> List[models.movie_model]:
     else:
         records = db.query(models.movie_model).filter(
                             models.movie_model.title.like("%"+title+"%")
-                ).order_by(desc(models.movie_model.rating)).all()
+                ).order_by(desc(models.movie_model.rating)).limit(20).all()
         if not records:
             raise HTTPException(status_code=404, detail="Not Found")
         return records
@@ -35,7 +35,7 @@ def get_movie_by_star(star: str, db: Session) -> List[models.movie_model]:
                 models.movie_model.stars_2.like("%" + star + "%"),
                 models.movie_model.stars_3.like("%" + star + "%")
             )
-        ).order_by(desc(models.movie_model.rating)).all()
+        ).order_by(desc(models.movie_model.rating)).limit(20).all()
         if not records:
             raise HTTPException(status_code=404, detail="Not Found")
         return records
@@ -52,7 +52,7 @@ def get_movie_by_writer(writer: str, db: Session) -> List[models.movie_model]:
                 models.movie_model.writers_2.like("%" + writer + "%"),
                 models.movie_model.writers_3.like("%" + writer + "%")
             )
-        ).order_by(desc(models.movie_model.rating)).all()
+        ).order_by(desc(models.movie_model.rating)).limit(20).all()
         if not records:
             raise HTTPException(status_code=404, detail="Not Found")
         return records
@@ -68,7 +68,7 @@ def get_movie_by_director(director: str, db: Session) -> List[models.movie_model
                 models.movie_model.director_1.like("%" + director + "%"),
                 models.movie_model.director_2.like("%" + director + "%")
             )
-        ).order_by(desc(models.movie_model.rating)).all()
+        ).order_by(desc(models.movie_model.rating)).limit(20).all()
         if not records:
             raise HTTPException(status_code=404, detail="Not Found")
         return records
@@ -128,97 +128,217 @@ def delete_all_movies(db: Session) -> List[models.movie_model]:
     return records
 
 
+# def filter_movies(db: Session, genre, year, rank) -> List[models.movie_model]:
+
+#     if genre == "ALL" and year == "ALL" and rank == "rating":
+#         return get_all_movies(db=db)
+#     else:
+#         print(genre)
+#         if rank == "rating":
+#             if year == "ALL":
+#                 records = db.query(models.movie_model).filter(
+#                                 or_(
+#                                     models.movie_model.genres_1 == genre,
+#                                     models.movie_model.genres_2 == genre,
+#                                     models.movie_model.genres_3 == genre
+#                                 )
+#                             ).order_by(desc(models.movie_model.rating)).limit(20).all()
+#             else:
+#                 records = db.query(models.movie_model).filter(
+#                     and_(
+#                         or_(
+#                             models.movie_model.genres_1 == genre,
+#                             models.movie_model.genres_2 == genre,
+#                             models.movie_model.genres_3 == genre
+#                         ),
+#                         models.movie_model.year == year
+#                     )
+#                 ).order_by(desc(models.movie_model.rating)).limit(20).all()
+
+#         elif rank == "popularity":
+#             if year == "ALL":
+#                 records = db.query(models.movie_model).filter(
+#                     or_(
+#                         models.movie_model.genres_1 == genre,
+#                         models.movie_model.genres_2 == genre,
+#                         models.movie_model.genres_3 == genre
+#                     )
+#                 ).order_by(desc(models.movie_model.popularity)).limit(20).all()
+#             else:
+#                 records = db.query(models.movie_model).filter(
+#                     and_(
+#                         or_(
+#                             models.movie_model.genres_1 == genre,
+#                             models.movie_model.genres_2 == genre,
+#                             models.movie_model.genres_3 == genre
+#                         ),
+#                         models.movie_model.year == year
+#                     )
+#                 ).order_by(desc(models.movie_model.popularity)).limit(20).all()
+
+#         elif rank == "metascore":
+#             if year == "ALL":
+#                 records = db.query(models.movie_model).filter(
+#                     or_(
+#                         models.movie_model.genres_1 == genre,
+#                         models.movie_model.genres_2 == genre,
+#                         models.movie_model.genres_3 == genre
+#                     )
+#                 ).order_by(desc(models.movie_model.metascore)).limit(20).all()
+#             else:
+#                 records = db.query(models.movie_model).filter(
+#                     and_(
+#                         or_(
+#                             models.movie_model.genres_1 == genre,
+#                             models.movie_model.genres_2 == genre,
+#                             models.movie_model.genres_3 == genre
+#                         ),
+#                         models.movie_model.year == year
+#                     )
+#                 ).order_by(desc(models.movie_model.metascore)).limit(20).all()
+
+#         elif rank == "ranking_people":
+#             if year == "ALL":
+#                 records = db.query(models.movie_model).filter(
+#                     or_(
+#                         models.movie_model.genres_1 == genre,
+#                         models.movie_model.genres_2 == genre,
+#                         models.movie_model.genres_3 == genre
+#                     )
+#                 ).order_by(desc(models.movie_model.ranking_people)).limit(20).all()
+#             else:
+#                 records = db.query(models.movie_model).filter(
+#                     and_(
+#                         or_(
+#                             models.movie_model.genres_1 == genre,
+#                             models.movie_model.genres_2 == genre,
+#                             models.movie_model.genres_3 == genre
+#                         ),
+#                         models.movie_model.year == year
+#                     )
+#                 ).order_by(desc(models.movie_model.ranking_people)).limit(20).all()
+
+#         return records
+
 def filter_movies(db: Session, genre, year, rank) -> List[models.movie_model]:
 
-    if genre == "ALL" and year == "ALL" and rank == "rating":
-        return get_all_movies(db=db)
-    else:
-        print(genre)
+    if genre == "ALL" and year == "ALL":
         if rank == "rating":
-            if year == "ALL":
-                records = db.query(models.movie_model).filter(
-                                or_(
-                                    models.movie_model.genres_1 == genre,
-                                    models.movie_model.genres_2 == genre,
-                                    models.movie_model.genres_3 == genre
-                                )
-                            ).order_by(desc(models.movie_model.rating)).limit(20).all()
-            else:
-                records = db.query(models.movie_model).filter(
-                    and_(
-                        or_(
-                            models.movie_model.genres_1 == genre,
-                            models.movie_model.genres_2 == genre,
-                            models.movie_model.genres_3 == genre
-                        ),
-                        models.movie_model.year == year
-                    )
-                ).order_by(desc(models.movie_model.rating)).limit(20).all()
+            return db.query(models.movie_model).filter().order_by(desc(models.movie_model.rating)).limit(20).all()
+        if rank == "popularity":
+            return db.query(models.movie_model).filter().order_by(desc(models.movie_model.popularity)).limit(20).all()
+        if rank == "metascore":
+            return db.query(models.movie_model).filter().order_by(desc(models.movie_model.metascore)).limit(20).all()
+        if rank == "ranking_people":
+            return db.query(models.movie_model).filter().order_by(desc(models.movie_model.ranking_people)).limit(20).all()
+    elif genre == "ALL" and year != "ALL":
 
-        elif rank == "popularity":
-            if year == "ALL":
-                records = db.query(models.movie_model).filter(
+        if rank == "rating":
+
+            records = db.query(models.movie_model).filter(
+                    models.movie_model.year == year).order_by(desc(models.movie_model.rating)).limit(20).all()
+            return records
+        if rank == "popularity":
+            records = db.query(models.movie_model).filter(
+                    models.movie_model.year == year).order_by(desc(models.movie_model.popularity)).limit(20).all()
+            return records
+        if rank == "metascore":
+            records = db.query(models.movie_model).filter(
+                    models.movie_model.year == year).order_by(desc(models.movie_model.metascore)).limit(20).all()
+            return records
+        if rank == "ranking_people":
+            records = db.query(models.movie_model).filter(
+                    models.movie_model.year == year).order_by(desc(models.movie_model.ranking_people)).limit(20).all()
+            return records
+
+    elif genre != "ALL" and year == "ALL":
+
+        if rank == "rating":
+            records = db.query(models.movie_model).filter(
+                or_(
+                    models.movie_model.genres_1 == genre,
+                    models.movie_model.genres_2 == genre,
+                    models.movie_model.genres_3 == genre
+                )
+            ).order_by(desc(models.movie_model.rating)).limit(20).all()
+            return records
+        if rank == "popularity":
+            records = db.query(models.movie_model).filter(
+                or_(
+                    models.movie_model.genres_1 == genre,
+                    models.movie_model.genres_2 == genre,
+                    models.movie_model.genres_3 == genre
+                )
+            ).order_by(desc(models.movie_model.popularity)).limit(20).all()
+            return records
+        if rank == "metascore":
+            records = db.query(models.movie_model).filter(
+                or_(
+                    models.movie_model.genres_1 == genre,
+                    models.movie_model.genres_2 == genre,
+                    models.movie_model.genres_3 == genre
+                )
+            ).order_by(desc(models.movie_model.metascore)).limit(20).all()
+            return records
+        if rank == "ranking_people":
+            records = db.query(models.movie_model).filter(
+                or_(
+                    models.movie_model.genres_1 == genre,
+                    models.movie_model.genres_2 == genre,
+                    models.movie_model.genres_3 == genre
+                )
+            ).order_by(desc(models.movie_model.ranking_people)).limit(20).all()
+            return records
+    elif genre != "ALL" and year != "ALL":
+
+        if rank == "rating":
+            records = db.query(models.movie_model).filter(
+                        and_(
+                            or_(
+                                models.movie_model.genres_1 == genre,
+                                models.movie_model.genres_2 == genre,
+                                models.movie_model.genres_3 == genre
+                            ),
+                            models.movie_model.year == year
+                        )
+            ).order_by(desc(models.movie_model.rating)).limit(20).all()
+            return records
+        if rank == "popularity":
+            records = db.query(models.movie_model).filter(
+                and_(
                     or_(
                         models.movie_model.genres_1 == genre,
                         models.movie_model.genres_2 == genre,
                         models.movie_model.genres_3 == genre
-                    )
-                ).order_by(desc(models.movie_model.popularity)).limit(20).all()
-            else:
-                records = db.query(models.movie_model).filter(
-                    and_(
-                        or_(
-                            models.movie_model.genres_1 == genre,
-                            models.movie_model.genres_2 == genre,
-                            models.movie_model.genres_3 == genre
-                        ),
-                        models.movie_model.year == year
-                    )
-                ).order_by(desc(models.movie_model.popularity)).limit(20).all()
-
-        elif rank == "metascore":
-            if year == "ALL":
-                records = db.query(models.movie_model).filter(
+                    ),
+                    models.movie_model.year == year
+                )
+            ).order_by(desc(models.movie_model.popularity)).limit(20).all()
+            return records
+        if rank == "metascore":
+            records = db.query(models.movie_model).filter(
+                and_(
                     or_(
                         models.movie_model.genres_1 == genre,
                         models.movie_model.genres_2 == genre,
                         models.movie_model.genres_3 == genre
-                    )
-                ).order_by(desc(models.movie_model.metascore)).limit(20).all()
-            else:
-                records = db.query(models.movie_model).filter(
-                    and_(
-                        or_(
-                            models.movie_model.genres_1 == genre,
-                            models.movie_model.genres_2 == genre,
-                            models.movie_model.genres_3 == genre
-                        ),
-                        models.movie_model.year == year
-                    )
-                ).order_by(desc(models.movie_model.metascore)).limit(20).all()
-
-        elif rank == "ranking_people":
-            if year == "ALL":
-                records = db.query(models.movie_model).filter(
+                    ),
+                    models.movie_model.year == year
+                )
+            ).order_by(desc(models.movie_model.metascore)).limit(20).all()
+            return records
+        if rank == "ranking_people":
+            records = db.query(models.movie_model).filter(
+                and_(
                     or_(
                         models.movie_model.genres_1 == genre,
                         models.movie_model.genres_2 == genre,
                         models.movie_model.genres_3 == genre
-                    )
-                ).order_by(desc(models.movie_model.ranking_people)).limit(20).all()
-            else:
-                records = db.query(models.movie_model).filter(
-                    and_(
-                        or_(
-                            models.movie_model.genres_1 == genre,
-                            models.movie_model.genres_2 == genre,
-                            models.movie_model.genres_3 == genre
-                        ),
-                        models.movie_model.year == year
-                    )
-                ).order_by(desc(models.movie_model.ranking_people)).limit(20).all()
-
-        return records
+                    ),
+                    models.movie_model.year == year
+                )
+            ).order_by(desc(models.movie_model.ranking_people)).limit(20).all()
+            return records
 
 
 def store_to_db(db: Session, filename: str):
