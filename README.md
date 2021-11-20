@@ -57,9 +57,21 @@ Nous avons utilisé Docker pour le développement et le déploiement de notre ap
 
 Fichers et dossiers : [Dockfile](https://github.com/xul-ops/DSIA_projet_fullstack_application/blob/main/Dockerfile) de Fastapi, [Dockfile](https://github.com/xul-ops/DSIA_projet_fullstack_application/blob/main/vue/Dockerfile) de Vue, [docker-compose.yml](https://github.com/xul-ops/DSIA_projet_fullstack_application/blob/main/docker-compose.yml)
 
-- [Dockfile] de Fastapi(https://github.com/xul-ops/DSIA_projet_fullstack_application/blob/main/Dockerfile) : Il contient les paramètres de Fastapi sur l'image correspondant de docker.
+- [Dockfile](https://github.com/xul-ops/DSIA_projet_fullstack_application/blob/main/Dockerfile) de Fastapi : Il contient les paramètres de Fastapi sur l'image correspondant de docker.
 
-- [Dockfile] de Vue(https://github.com/xul-ops/DSIA_projet_fullstack_application/blob/main/vue/Dockerfile) : Il contient les paramètres de Vue sur l'image correspondant de docker.
+- [Dockfile](https://github.com/xul-ops/DSIA_projet_fullstack_application/blob/main/vue/Dockerfile) de Vue : Il contient les paramètres de Vue sur l'image correspondant de docker.
+
+- [docker-compose.yml](https://github.com/xul-ops/DSIA_projet_fullstack_application/blob/main/docker-compose.yml) : Dans le fichier docker-compose.yml, le conteneur est décrit avec un ensemble de paramètres qui correspondent aux options disponibles lors d’un docker run : l’image à utiliser, les volumes à monter, les ports à ouvrir, etc.
+
+### Fastapi 
+
+Nous avons utilisé Fastapi pour créer des API de manière transparente sans trop d'efforts.
+
+Fichers et dossiers : [Dockfile](https://github.com/xul-ops/DSIA_projet_fullstack_application/blob/main/Dockerfile) de Fastapi, [Dockfile](https://github.com/xul-ops/DSIA_projet_fullstack_application/blob/main/vue/Dockerfile) de Vue, [docker-compose.yml](https://github.com/xul-ops/DSIA_projet_fullstack_application/blob/main/docker-compose.yml)
+
+- [Dockfile](https://github.com/xul-ops/DSIA_projet_fullstack_application/blob/main/Dockerfile) de Fastapi : Il contient les paramètres de Fastapi sur l'image correspondant de docker.
+
+- [Dockfile](https://github.com/xul-ops/DSIA_projet_fullstack_application/blob/main/vue/Dockerfile) de Vue : Il contient les paramètres de Vue sur l'image correspondant de docker.
 
 - [docker-compose.yml](https://github.com/xul-ops/DSIA_projet_fullstack_application/blob/main/docker-compose.yml) : Dans le fichier docker-compose.yml, le conteneur est décrit avec un ensemble de paramètres qui correspondent aux options disponibles lors d’un docker run : l’image à utiliser, les volumes à monter, les ports à ouvrir, etc.
 
