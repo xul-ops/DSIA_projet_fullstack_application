@@ -69,6 +69,8 @@ Fichers et dossiers : [Dockfile](https://github.com/xul-ops/DSIA_projet_fullstac
 
 Nous avons utilisé Fastapi pour créer des API de manière transparente sans trop d'efforts.
 
+Concernant l'authentification, nous avons utilisé OAuth2 pour produire les tokens, et l'algorithm HS256 pour cryptager les mots de pass.
+
 Fichers et dossiers : [Dockfile](https://github.com/xul-ops/DSIA_projet_fullstack_application/blob/main/Dockerfile) de Fastapi, [Dockfile](https://github.com/xul-ops/DSIA_projet_fullstack_application/blob/main/vue/Dockerfile) de Vue, [docker-compose.yml](https://github.com/xul-ops/DSIA_projet_fullstack_application/blob/main/docker-compose.yml)
 
 - [Dockfile](https://github.com/xul-ops/DSIA_projet_fullstack_application/blob/main/Dockerfile) de Fastapi : Il contient les paramètres de Fastapi sur l'image correspondant de docker.
