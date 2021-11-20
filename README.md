@@ -20,6 +20,7 @@ Ce projet consiste en la création d'une application en utilisant [Docker](https
 ## Prérequis 
 
 Environnement et Packages : Tous les détails sont dans [docker-compose.yml](https://github.com/xul-ops/DSIA_projet_fullstack_application/blob/main/docker-compose.yml) et [requirements.txt](https://github.com/xul-ops/DSIA_projet_fullstack_application/blob/main/requirements.txt).
+
 Les données: [imdb_movies.csv](https://github.com/xul-ops/DSIA_projet_fullstack_application/blob/main/app/imdb_movies.csv) - Nous l'avons crawlé en utilisant "Scrapy".
 
 Clonez le git répertoire avec la commande suivante :
