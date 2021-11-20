@@ -28,7 +28,7 @@
                   v-model="movieDetail.rating"
                   :max="10"
                   disabled
-                  score-template="{value}分"
+                  score-template="{value}"
                   show-score
                   text-color="#ff9900">
               </el-rate>
